@@ -4,9 +4,9 @@ def binary_search(a, v):
     while low <= high:
         mid = (low + high) // 2
         if v < a[mid]:
-            high -= 1
+            high = mid - 1
         elif v > a[mid]:
-            low += 1
+            low = mid + 1
         else:
             return mid
     return -1
