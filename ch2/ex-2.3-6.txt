@@ -1,0 +1,5 @@
+No.
+
+Even though finding the correct index where to insert the next value
+only takes O(log n), it still takes O(n) to shift down the array
+to insert the value. The overal running time is still O(n^2).
