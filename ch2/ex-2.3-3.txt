@@ -1,0 +1,17 @@
+base case:
+    n = 2
+    T(n) = 2
+    2*lg(2) = 2*1 = 2
+
+induction step:
+    assume that when n = 2^k (k > 1),
+    T(n) = n*lg(n)
+         = (2^k)*lg(2^k)
+         = (2^k)*k
+
+    consider m = 2^(k+1),
+    T(m) = 2*T(m/2) + m
+         = 2*T(2^k) + 2^(k+1)
+         = 2*[(2^k)*k] + 2^(k+1)
+         = k*2^(k+1) + 2^(k+1)
+         = (k+1)*2^(k+1)

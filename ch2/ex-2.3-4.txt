@@ -1,0 +1,9 @@
+T(n) = O(1)                      if n <= c
+       aT(n/b) + D(n) + C(n)     otherwise
+
+for recursive insertion:
+
+D(n) = O(1)    to divide
+C(n) = O(n)    to insert last element
+
+T(n) = T(n - 1) + O(1) + O(n)
