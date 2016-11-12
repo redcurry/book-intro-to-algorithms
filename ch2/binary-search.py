@@ -21,20 +21,23 @@ def main():
     print binary_search(seq, 100)
 
 def binary_search(a, v):
-    return binary_search_rec(a, v, 0, len(a))
+    return binary_search_rec(a, v, 0, len(a) - 1)
 
-def binary_search_rec(a, v, p, r):
-    if p == r:
-        return None
+def binary_search_rec(a, v, low, high):
+    if low == high:
+        if v == a[low]:
+            return low
+        else:
+            return -1
 
-    q = int(math.floor((p + r) / 2.0))
+    mid = int(math.floor((low + high) / 2.0))
 
-    if v == a[q]:
-        return q
-    elif v < a[q]:
-        return binary_search_rec(a, v, p, q)
+    if v < a[mid]:
+        return binary_search_rec(a, v, low, mid - 1)
+    elif v > a[mid]:
+        return binary_search_rec(a, v, mid + 1, high)
     else:
-        return binary_search_rec(a, v, q + 1, r)
+        return mid
 
 
 # Worst-case: v is not in list
