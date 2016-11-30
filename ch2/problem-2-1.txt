@@ -1,0 +1,22 @@
+a. For a list of length k, insertion sort is O(k^2),
+   so for n/k lists, O(n/k * k^2) = O(nk).
+
+b. Using the same logic as Fig. 2.5,
+   we continue until each subtree is of length k.
+   Let's assume that k = n/K, where K is a constant.
+   The first level takes cn, the second cn/2 per node,
+   the third cn/4 per node, and so one until cn/K.
+   Since the cn/K nodes are already merged,
+   we only need to consider the levels up to cn/(K - 1).
+   There are lg K - 1 levels, so the total is cn(lg K - 1).
+   Because K = n/k, we have cn[lg (n/k) - 1].
+   This reduces to O(n lg (n/k)).
+
+c. We must find k so that O(nk + n lg (n/k)) = O(n lg n).
+   If k = lg n, then we get O(n lg n + n lg n - n lg lg n),
+   which simplifies to O(n lg n).
+   k = lg n is probably the highest function of n
+   where the big-O doesn't go higher than O(n lg n).
+
+d. In practice, k should be chosen so that sorting k elements
+   with insertion sort is faster than sorting them with merge sort.
