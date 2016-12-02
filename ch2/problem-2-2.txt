@@ -1,0 +1,75 @@
+a. Show that A' contains all the elements in A.
+
+b. Loop invariant:
+
+       The subarray A[j..n] contains the original elements in A[j..n]
+       but A[j] is now the smallest element in the subarray.
+
+   Initialization:
+   
+       When j = n, the subarray A[j..n] = A[n], so it contains one element.
+       It is the original element in A[n] and it is (trivially) the smallest.
+
+   Maintenance:
+
+       At the start of the loop, the subarray to consider is A[j..n].
+       Assuming the loop invariant holds before the loop starts,
+       the element A[j] is the smallest element in A[j..n].
+       Inside the loop, the elements A[j] and A[j - 1] are swapped
+       if A[j] is less than A[j - 1], making A[j] the smallest element
+       in subarray A[j - 1..n]. If A[j] is not less than A[j - 1],
+       then A[j - 1] is already the smallest element in A[j - 1..n].
+       Because the only change to the subarray is a swap,
+       the original elements in the subarray are in the new subarray.
+
+   Termination:
+
+       When j = i + 1 and the inside of the loop executes,
+       the subarray A[i..n] contains the original elements in A[i..n]
+       and element A[i] is the smallest element in A[i..n].
+
+c. Loop invariant:
+
+       The subarray A[1..i - 1] is sorted and its elements
+       are all smaller than the elements in A[i..n].
+
+   Initialization:
+
+       When i = 1, the subarray A[1..0] is empty,
+       so it is trivially sorted.
+
+   Maintenance:
+
+       At the start of the loop, the subarray to consider is A[i..n].
+       Assuming the loop invariant holds before the loop starts,
+       the elements A[1..i - 1] is sorted and its elements
+       are all smaller than the elements in A[i..n].
+       Inside the loop, the inner loop causes A[i..n] to contain
+       the original elements in A[i..n] but A[i] is now the smallest
+       element in A[i..n]. This means that A[1..i] is sorted
+       and its elements are all smaller than A[i + 1..n].
+
+   Termination:
+
+       When the loop terminates, i = n + 1, so the subarray
+       A[1..i - 1] = A[1..n] is sorted.
+
+d. Pseudocode, costs, and times:
+
+   for i in 1 to n                             n
+       for j in n downto i + 1                 E[1,n] (n - i)
+           if A[j] < A[j - 1]                  E[1,n] (n - i)
+               swap A[j] and A[j - 1]          E[1,n] (n - 1)
+
+   E[1,n] (n - i) = (n - 1) + (n - 2) + ... + (n - n)
+                  = (n + n + ... + n) - (1 + 2 + ... + n)
+                  = n^2 - n(n + 1)/2
+                  = n^2 - (n^2 + n)/2
+                  = (1/2)n^2 - (1/2)n
+
+   T(n) = n + 3 * [(1/2)n^2 - (1/2)n]
+        = n + (3/2)n^2 - (3/2)n
+        = (3/2)n^2 - (1/2)n
+
+   Therefore, the worst-case running time of bubble sort is O(n^2).
+   It is the same as insertion sort.
