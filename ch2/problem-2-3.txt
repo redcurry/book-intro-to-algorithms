@@ -1,0 +1,57 @@
+a. Pseudocode and times:
+
+   y = 0                     1
+   i = n                     1
+   while i >= 0              n + 1
+       y = a[i] + x*y        n + 1
+       i = i - 1             n + 1
+
+   T(n) = 2 + 3(n + 1) = 3n + 5 => O(n)
+
+b. Pseudocode:
+
+   y = a[0]                  1
+   for k in 1 to n           n
+       y = y + a[k] + x^k    E[1,n] i
+
+   T(n) = 1 + n + n(n + 1)/2
+        = 1 + n + n^2/2 + n/2
+        = n^2/2 + 3n/2 + 1
+
+   Therefore, the running time is O(n^2).
+   This assumes that x^k can't be done in a single step.
+
+c. Initialization:
+
+       At the start of the loop, i = n, so the summation
+       has no terms, which means it is 0.
+       At the start of the loop, y = 0, so the invariant holds.
+
+   Maintenance:
+
+       Assume that y = E[0,n-(i+1)] a[k+i+1]*x^k.
+       We need to show that at the start of the next iteration,
+       y = E[0,n-i] a[k+i]*x^k because i is one less that before.
+
+       Inside the loop, y is assigned to a[i] + x*y,
+
+           y = a[i] + x*{E[0,n-(i+1)] a[k+i+1]*x^k}
+             = a[i] + E[0,n-(i+1)] a[k+i+1]*x^(k+1)
+             = a[i] + E[1,n-(i+1)+1] a[k+i]*x^k          (1)
+             = a[i] + E[1,n-i] a[k+i]*x^k
+             = E[0,n-i] a[k+i]*x^k                       (2)
+
+       (1) Shift the k up one, which must shift the termination up one, too.
+       (2) a[i] = a[0+i]*x^0, so incorporate in summation
+           with k starting at 0.
+
+       Therefore, the invariant holds.
+
+   Termination:
+
+       When the loop terminates, i = -1, so y = E[0,n] a[k]*x^k,
+       which is the original equation.
+
+d. Given that at the end of the code, y = E[0,n] a[k]*x^k
+   for coefficients a[0], a[1], ..., a[n], the code correctly
+   evaluates the polynomial.
